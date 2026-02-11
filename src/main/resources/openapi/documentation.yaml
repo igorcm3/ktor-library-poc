@@ -1,0 +1,264 @@
+openapi: 3.0.0
+info:
+  title: Biblioteca API
+  description: API REST para gerenciamento de biblioteca com livros e autores
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Servidor local
+paths:
+  /api/autores:
+    get:
+      summary: Lista todos os autores
+      tags:
+        - Autores
+      responses:
+        '200':
+          description: Lista de autores
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AutorResponse'
+    post:
+      summary: Cria um novo autor
+      tags:
+        - Autores
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutorRequest'
+      responses:
+        '201':
+          description: Autor criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutorResponse'
+  /api/autores/{id}:
+    get:
+      summary: Busca um autor por ID
+      tags:
+        - Autores
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Autor encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutorResponse'
+        '404':
+          description: Autor não encontrado
+    put:
+      summary: Atualiza um autor
+      tags:
+        - Autores
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutorRequest'
+      responses:
+        '200':
+          description: Autor atualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutorResponse'
+        '404':
+          description: Autor não encontrado
+    delete:
+      summary: Exclui um autor
+      tags:
+        - Autores
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Autor excluído com sucesso
+        '404':
+          description: Autor não encontrado
+  /api/livros:
+    get:
+      summary: Lista todos os livros
+      tags:
+        - Livros
+      responses:
+        '200':
+          description: Lista de autores
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LivroResponse'
+    post:
+      summary: Cria um novo livro
+      tags:
+        - Livros
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LivroRequest'
+      responses:
+        '201':
+          description: Livro criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LivroResponse'
+  /api/livros/{id}:
+    get:
+      summary: Busca um livro por ID
+      tags:
+        - Livros
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Livro encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LivroResponse'
+        '404':
+          description: Livro não encontrado
+    put:
+      summary: Atualiza um livro
+      tags:
+        - Livros
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LivroRequest'
+      responses:
+        '200':
+          description: Livro atualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LivroResponse'
+        '404':
+          description: Livro não encontrado
+    delete:
+      summary: Exclui um livro
+      tags:
+        - Livros
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Livro excluído com sucesso
+        '404':
+          description: Livro não encontrado
+components:
+  schemas:
+    AutorRequest:
+      type: object
+      required:
+        - nome
+      properties:
+        nome:
+          type: string
+          example: Machado de Assis
+        nacionalidade:
+          type: string
+          example: Brasileiro
+          nullable: true
+    AutorResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        nome:
+          type: string
+          example: Machado de Assis
+        nacionalidade:
+          type: string
+          example: Brasileiro
+          nullable: true
+    LivroRequest:
+      type: object
+      required:
+        - titulo
+        - isbn
+        - anoPublicacao
+        - autorId
+      properties:
+        titulo:
+          type: string
+          example: Dom Casmurro
+        isbn:
+          type: string
+          example: 978-8535908770
+        anoPublicacao:
+          type: integer
+          example: 1899
+        autorId:
+          type: integer
+          format: int64
+          example: 1
+    LivroResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        titulo:
+          type: string
+          example: Dom Casmurro
+        isbn:
+          type: string
+          example: 978-8535908770
+        anoPublicacao:
+          type: integer
+          example: 1899
+        autor:
+          $ref: '#/components/schemas/AutorResponse'

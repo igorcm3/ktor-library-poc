@@ -1,0 +1,12 @@
+> Task :checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :compileKotlin UP-TO-DATE
+> Task :compileJava NO-SOURCE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+
+> Task :run
+15:32:48.830 [34mINFO [0;39m [36m[Application][0;39m Autoreload is disabled because the development mode is off.
+15:32:48.900 [34mINFO [0;39m [36m[Application][0;39m 🚀 Iniciando BiblioTech...
+15:32:49.233 [34mINFO [0;39m [36m[Application][0;39m ✅ Aplicação pronta em http://localhost:8080
+15:32:50.279 [34mINFO [0;39m [36m[Application][0;39m Application started in 1.56 seconds.
+15:32:50.443 [34mINFO [0;39m [36m[Application][0;39m Responding at http://0.0.0.0:8080
